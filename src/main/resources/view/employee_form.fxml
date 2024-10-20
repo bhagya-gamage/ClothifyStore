@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="554.0" prefWidth="727.0" style="-fx-background-color: #DCDCDC;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.form_controllers.EmployeeMainFormController">
+   <children>
+      <ImageView fitHeight="584.0" fitWidth="787.0" layoutX="-11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/cloth1.jpeg" />
+         </image>
+      </ImageView>
+      <Label layoutX="53.0" layoutY="-6.0" text="Employee Management" textFill="#d7e10ab8">
+         <font>
+            <Font name="Book Antiqua Bold" size="62.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000061" height="191.0" layoutX="33.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" width="710.0" />
+      <TextField fx:id="txtEmid" layoutX="83.0" layoutY="105.0" promptText="Employee Id" />
+      <TextField fx:id="txtEmname" layoutX="309.0" layoutY="105.0" promptText="Employee Name" />
+      <TextField fx:id="txtEmComname" layoutX="536.0" layoutY="105.0" promptText="Company Name" />
+      <TextField fx:id="txtEmAddress" layoutX="83.0" layoutY="155.0" promptText="Employee Address" />
+      <JFXButton layoutX="73.0" layoutY="207.0" onAction="#btnAddEmOnAction" prefHeight="38.0" prefWidth="129.0" style="-fx-background-color: #7CFC00;" text="Add Employee">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="239.0" layoutY="207.0" onAction="#btnUpdateEmOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #FFFF00;" text="Update Employee">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="566.0" layoutY="207.0" onAction="#btnViewEmOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #00BFFF;" text="View Employee">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="403.0" layoutY="207.0" onAction="#btnDeleteEmOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #FF0000;" text="Delete Employee">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <TextField fx:id="txtEmAddress" layoutX="309.0" layoutY="155.0" promptText="Employee Email" />
+      <TableView fx:id="employeetable" layoutX="34.0" layoutY="304.0" prefHeight="200.0" prefWidth="710.0">
+         <columns>
+            <TableColumn fx:id="colEmid" prefWidth="140.8000144958496" text="Employee Id" />
+            <TableColumn fx:id="colemname" prefWidth="148.00001525878906" text="Employee Name" />
+            <TableColumn fx:id="colemcomname" prefWidth="128.800048828125" text="Company Name" />
+            <TableColumn fx:id="colemaddress" prefWidth="136.800048828125" text="Employee Address" />
+            <TableColumn fx:id="colememail" prefWidth="155.99993896484375" text="Employee Email" />
+         </columns>
+      </TableView>
+      <JFXButton layoutX="573.0" layoutY="523.0" onAction="#btnHomeOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #800000;" text="Home" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

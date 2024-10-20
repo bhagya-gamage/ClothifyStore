@@ -1,4 +1,4 @@
 package controller.form_controllers;
 
-public class AdminMainFormController {
+public class ReportFormController {
 }

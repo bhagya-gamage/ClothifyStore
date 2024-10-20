@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller=""
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.form_controllers.SupplierFormController">
+   <children>
+      <ImageView fitHeight="571.0" fitWidth="883.0" layoutX="-3.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/clothify.jpeg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000061" height="191.0" layoutX="28.0" layoutY="73.0" stroke="BLACK" strokeType="INSIDE" width="710.0" />
+      <Label layoutX="67.0" layoutY="-10.0" text="Supplier Management" textFill="#ffffffb8">
+         <font>
+            <Font name="Book Antiqua Bold" size="62.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtSupid" layoutX="86.0" layoutY="95.0" promptText="Supplier Id" />
+      <TextField fx:id="txtSuoname" layoutX="312.0" layoutY="95.0" promptText="Supplier Name" />
+      <TextField fx:id="txtComname" layoutX="539.0" layoutY="95.0" promptText="Company Name" />
+      <TextField fx:id="txtsupemail" layoutX="313.0" layoutY="145.0" promptText="Supplier Email" />
+      <TextField fx:id="txtsupAddress" layoutX="86.0" layoutY="145.0" promptText="Supplier Address" />
+      <JFXButton layoutX="76.0" layoutY="197.0" onAction="#btnAddSupOnAction" prefHeight="38.0" prefWidth="129.0" style="-fx-background-color: #7CFC00;" text="Add Suppler">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="242.0" layoutY="197.0" onAction="#btnUpdateSupOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #FFFF00;" text="Update Supplier">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="569.0" layoutY="197.0" onAction="#btnViewSupOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #00BFFF;" text="View Supplier">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="406.0" layoutY="197.0" onAction="#btnDeleteSupOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #FF0000;" text="Delete Supplier">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="suppliertable" layoutX="27.0" layoutY="304.0" prefHeight="200.0" prefWidth="710.0">
+         <columns>
+            <TableColumn fx:id="colsupid" prefWidth="109.60000038146973" text="Supplier Id" />
+            <TableColumn fx:id="colsupname" prefWidth="121.60003662109375" text="Supplier Name" />
+            <TableColumn fx:id="colcomname" prefWidth="117.5999755859375" text="Company Name" />
+            <TableColumn fx:id="colsupaddress" prefWidth="126.39996337890625" text="Supplier Address" />
+            <TableColumn fx:id="colsupemail" prefWidth="112.80001831054688" text="Supplier Email" />
+            <TableColumn fx:id="colitem" prefWidth="120.0" text="Item" />
+         </columns>
+      </TableView>
+      <JFXButton layoutX="583.0" layoutY="515.0" onAction="#btnHomeOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #800000;" text="Home" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <TextField fx:id="txtitem" layoutX="539.0" layoutY="145.0" promptText="Item" />
+   </children>
 </AnchorPane>

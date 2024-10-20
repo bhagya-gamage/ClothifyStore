@@ -1,4 +1,4 @@
-package repository.custom;
+package repository;
 
 public interface SuperDao {
 }

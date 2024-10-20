@@ -1,87 +1,77 @@
 package controller.form_controllers;
 
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class EmployeeMainFormController {
 
     @FXML
-    private JFXTextField txtsupplieraddress;
+    private TableColumn<?, ?> colEmid;
 
     @FXML
-    private JFXTextField txtsuppliercompanyname;
+    private TableColumn<?, ?> colemaddress;
 
     @FXML
-    private JFXTextField txtsupplieremail;
+    private TableColumn<?, ?> colemcomname;
 
     @FXML
-    private TextField txtsupplierid;
+    private TableColumn<?, ?> colememail;
 
     @FXML
-    private JFXTextField txtsuppliername;
+    private TableColumn<?, ?> colemname;
 
     @FXML
-    void btnAddSupplierOnAction(ActionEvent event) {
+    private TableView<?> employeetable;
+
+    @FXML
+    private TextField txtEmAddress;
+
+    @FXML
+    private TextField txtEmComname;
+
+    @FXML
+    private TextField txtEmid;
+
+    @FXML
+    private TextField txtEmname;
+
+    @FXML
+    void btnAddEmOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void btnClearFormOnAction(ActionEvent event) {
+    void btnDeleteEmOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void btnDashBoardOnAction(ActionEvent event) {
+    void btnHomeOnAction(ActionEvent event) {
+        Stage stage = new Stage();
+        try {
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/dashBoard_form.fxml"))));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void btnUpdateEmOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void btnDeleteOnAction(ActionEvent event) {
+    void btnViewEmOnAction(ActionEvent event) {
 
     }
 
-    @FXML
-    void btnInventoryManagementOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnLogOutOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnOrderManagementOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnReportGeneration(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnSearchOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnSupplierManagementOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnUpdateSupplierOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnViewOnAction(ActionEvent event) {
-
-    }
-
-    public void btnUpdateSupOnAction(ActionEvent actionEvent) {
-    }
 }

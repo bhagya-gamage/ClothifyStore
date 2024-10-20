@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.form_controllers.RegisterFormController">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="658.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/cloth1.jpeg" />
+         </image>
+      </ImageView>
+      <Label layoutX="84.0" layoutY="9.0" text="User Registration" textFill="#a9ac0e">
+         <font>
+            <Font name="Book Antiqua Bold" size="62.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000084" height="304.0" layoutX="117.0" layoutY="107.0" stroke="BLACK" strokeType="INSIDE" width="426.0" />
+      <Label layoutX="141.0" layoutY="153.0" text="User Type" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="141.0" layoutY="199.0" text="User Name" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="142.0" layoutY="245.0" text="Email" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="143.0" layoutY="289.0" text="Password" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="143.0" layoutY="335.0" text="Confirm Password" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtusername" layoutX="322.0" layoutY="199.0" prefHeight="26.0" prefWidth="198.0" />
+      <TextField fx:id="txtuseremail" layoutX="322.0" layoutY="245.0" prefHeight="26.0" prefWidth="198.0" />
+      <TextField fx:id="txtuserpassword" layoutX="322.0" layoutY="291.0" prefHeight="26.0" prefWidth="198.0" />
+      <TextField fx:id="txtconfpassword" layoutX="322.0" layoutY="336.0" prefHeight="26.0" prefWidth="198.0" />
+      <ComboBox fx:id="cmbusertype" layoutX="322.0" layoutY="154.0" prefHeight="26.0" prefWidth="198.0" />
+      <JFXButton layoutX="132.0" layoutY="436.0" onAction="#btnHomeOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #800000;" text="Home" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="387.0" layoutY="436.0" onAction="#btnRegisterOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #228B22;" text="Register" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

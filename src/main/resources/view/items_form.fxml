@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.form_controllers.ItemsFormController">
+   <children>
+      <ImageView fitHeight="566.0" fitWidth="793.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/clothify.jpeg" />
+         </image>
+      </ImageView>
+      <Label layoutX="115.0" layoutY="-5.0" text="Item Management" textFill="#ffffffb8">
+         <font>
+            <Font name="Book Antiqua Bold" size="62.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000061" height="191.0" layoutX="27.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" width="710.0" />
+      <TextField fx:id="txtitemid" layoutX="80.0" layoutY="104.0" promptText="Item Id" />
+      <TextField fx:id="txtitemname" layoutX="306.0" layoutY="104.0" promptText="Item Name" />
+      <TextField fx:id="txtitemqty" layoutX="533.0" layoutY="104.0" promptText="Item Quantity" />
+      <TextField fx:id="txtprice" layoutX="80.0" layoutY="157.0" promptText="Unit Price" />
+      <TextField fx:id="txtsize" layoutX="307.0" layoutY="157.0" promptText="Item Size" />
+      <JFXButton layoutX="70.0" layoutY="206.0" onAction="#btnAddItemOnAction" prefHeight="38.0" prefWidth="129.0" style="-fx-background-color: #7CFC00;" text="Add Item">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="236.0" layoutY="206.0" onAction="#btnUpdateItemOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #FFFF00;" text="Update Item">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="563.0" layoutY="206.0" onAction="#btnViewItemOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #00BFFF;" text="View Item">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="400.0" layoutY="206.0" onAction="#btnDeleteItemOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #FF0000;" text="Delete Item">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="itemtable" layoutX="28.0" layoutY="294.0" prefHeight="200.0" prefWidth="710.0">
+        <columns>
+          <TableColumn fx:id="colitemid" prefWidth="130.39996910095215" text="Item Id" />
+          <TableColumn fx:id="colitemname" prefWidth="147.199951171875" text="Item Name" />
+            <TableColumn fx:id="colitemqty" prefWidth="136.800048828125" text="Quantity" />
+            <TableColumn fx:id="colunitprice" prefWidth="150.39999389648438" text="Unit Price" />
+            <TableColumn fx:id="colitemsize" prefWidth="148.0" text="Size" />
+        </columns>
+      </TableView>
+      <JFXButton layoutX="563.0" layoutY="513.0" onAction="#btnHomeOnAction" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #800000;" text="Home" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
