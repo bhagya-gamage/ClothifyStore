@@ -10,5 +10,5 @@ public interface EmployeeService {
     ObservableList<EmployeeEntity> getAllEmployees();
     boolean updateEmployee(Employee employee);
     Employee searchEmployee(String id);
-    //ObservableList<String> getEmployeeIds();
+    ObservableList<String> getEmployeeIds();
 }
