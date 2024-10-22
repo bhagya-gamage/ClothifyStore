@@ -1,17 +1,23 @@
 package repository.custom.impl;
 
+import entity.EmployeeEntity;
 import entity.ItemEntity;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import repository.custom.ItemDao;
 import util.HibernateUtil;
+
+import java.util.List;
 
 public class ItemDaoImpl implements ItemDao {
     @Override
     public boolean save(ItemEntity item) {
         System.out.println("Repository : " + item);
 
-        Session session = HibernateUtil.getSession();
+        Session session = HibernateUtil.getItemSession();
         session.beginTransaction();
         session.persist(item);
         session.getTransaction().commit();
@@ -21,21 +27,51 @@ public class ItemDaoImpl implements ItemDao {
 
     @Override
     public boolean delete(String id) {
-        return false;
-    }
+        try {
+            Session session = HibernateUtil.getItemSession();
+            session.beginTransaction();
+            session.remove(session.get(ItemEntity.class,id));
+            session.getTransaction().commit();
+            return true;
+        } catch (HibernateException e) {
+            return false;
+        }    }
 
     @Override
     public ObservableList<ItemEntity> getAll() {
-        return null;
+        ObservableList<ItemEntity> item= FXCollections.observableArrayList();
+        try {
+            Session session = HibernateUtil.getItemSession();
+            Query<ItemEntity> query = session.createQuery("FROM EmployeeEntity", ItemEntity.class);
+            List<ItemEntity> itemEntityList=query.list();
+            item.addAll(itemEntityList);
+            return item;
+        } catch (HibernateException e) {
+            return item;
+        }
     }
 
     @Override
-    public boolean Update(ItemEntity itemEntity) {
-        return false;
+    public boolean update(ItemEntity itemEntity) {
+        try {
+            Session session = HibernateUtil.getItemSession();
+            session.beginTransaction();
+            session.merge(itemEntity.getItemId(),itemEntity);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            return false;
+        }
     }
 
     @Override
     public ItemEntity search(String id) {
-        return null;
+        try {
+            Session session = HibernateUtil.getEmployeeSession();
+            return session.get(ItemEntity.class, id);
+        } catch (HibernateException e) {
+            return null;
+        }
     }
 }

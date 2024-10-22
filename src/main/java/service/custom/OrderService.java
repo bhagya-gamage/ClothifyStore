@@ -1,0 +1,19 @@
+package service.custom;
+
+import dto.Order;
+import dto.OrderDetails;
+import entity.OrderEntity;
+import javafx.collections.ObservableList;
+
+public interface OrderService {
+    ObservableList<OrderEntity> getAllOrders();
+
+    Boolean addOrder(Order order, ObservableList<OrderDetails> orderDetails);
+
+    OrderEntity searchOrderById(String id);
+
+    boolean updateOrder(Order order,ObservableList<OrderDetails> orderDetails);
+
+    boolean deleteOrder(String id);
+
+}

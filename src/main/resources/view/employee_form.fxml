@@ -48,7 +48,6 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <TextField fx:id="txtEmAddress" layoutX="309.0" layoutY="155.0" promptText="Employee Email" />
       <TableView fx:id="employeetable" layoutX="34.0" layoutY="304.0" prefHeight="200.0" prefWidth="710.0">
          <columns>
             <TableColumn fx:id="colEmid" prefWidth="140.8000144958496" text="Employee Id" />
@@ -63,5 +62,6 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
+      <TextField fx:id="txtEmEmail" layoutX="309.0" layoutY="155.0" promptText="Employee Email" />
    </children>
 </AnchorPane>

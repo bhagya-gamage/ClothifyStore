@@ -1,17 +1,30 @@
 package controller.form_controllers;
 
+import dto.Employee;
+import dto.Item;
+import dto.Supplier;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import service.ServiceFactory;
+import service.custom.EmployeeService;
+import service.custom.ItemService;
+import service.custom.SupplierService;
+import util.ServiceType;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SupplierFormController {
+public class SupplierFormController implements Initializable {
 
     public TextField txtitem;
     public TableColumn colitem;
@@ -31,7 +44,7 @@ public class SupplierFormController {
     private TableColumn<?, ?> colsupname;
 
     @FXML
-    private TableView<?> suppliertable;
+    private TableView<Supplier> suppliertable;
 
     @FXML
     private TextField txtComname;
@@ -50,7 +63,23 @@ public class SupplierFormController {
 
     @FXML
     void btnAddSupOnAction(ActionEvent event) {
+        SupplierService supplierService = ServiceFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
+        Supplier supplier = new Supplier(
+                txtSupid.getText(),
+                txtSuoname.getText(),
+                txtComname.getText(),
+                txtsupAddress.getText(),
+                txtsupemail.getText(),
+                txtitem.getText()
+        );
 
+        supplierService.addSupplier(supplier);
+        if (supplierService.addSupplier(supplier)){
+            new Alert(Alert.AlertType.INFORMATION,"Employee Added !!").show();
+
+        }else {
+            new Alert(Alert.AlertType.ERROR,"Employee Not Added !!").show();
+        }
     }
 
     @FXML
@@ -71,12 +100,61 @@ public class SupplierFormController {
 
     @FXML
     void btnUpdateSupOnAction(ActionEvent event) {
+        SupplierService supplierService = ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
 
+        Supplier supplier = new Supplier(
+                txtSupid.getText(),
+                txtSuoname.getText(),
+                txtComname.getText(),
+                txtsupAddress.getText(),
+                txtsupemail.getText(),
+                txtitem.getText()
+        );
+
+        supplierService.updateSupplier(supplier);
+
+        if (supplierService.updateSupplier(supplier)){
+            new Alert(Alert.AlertType.INFORMATION,"Supplier Updated!!").show();
+            //loadTable();
+        }else {
+            new Alert(Alert.AlertType.ERROR,"Supplier Not Updated!!").show();
+        }
     }
 
     @FXML
     void btnViewSupOnAction(ActionEvent event) {
 
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        colsupid.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+        colsupname.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colcomname.setCellValueFactory(new PropertyValueFactory<>("packSize"));
+        colsupaddress.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colsupemail.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colitem.setCellValueFactory(new PropertyValueFactory<>("item"));
+        //loadTable();
+        suppliertable.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if(newValue!=null){
+                setTextToValues(newValue);
+            }
+        }));
+    }
+
+    private void setTextToValues(Supplier newValue) {
+        txtSupid.setText(newValue.getSupId());
+        txtSuoname.setText(newValue.getSupName());
+        txtComname.setText(newValue.getCompanyName());
+        txtsupAddress.setText(newValue.getSupAddress());
+        txtsupemail.setText(newValue.getSupEmail());
+        txtitem.setText(newValue.getItem());
+    }
+
+
+//    private void loadTable(){
+//        ObservableList<Employee> all = service.getAll();
+//        employeetable.setItems(all);
+//    }
 
 }

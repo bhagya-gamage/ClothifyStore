@@ -10,31 +10,26 @@ import service.custom.SupplierService;
 import util.DaoType;
 
 public class SupplierServiceImpl implements SupplierService {
+    SupplierDao supplierDao=DaoFactory.getInstance().getDaoType(DaoType.SUPPLIER);;
+
     @Override
     public boolean addSupplier(Supplier supplier) {
-        SupplierEntity entity = new ModelMapper().map(supplier, SupplierEntity.class);
-
-        SupplierDao supplierDao = DaoFactory.getInstance().getDaoType(DaoType.SUPPLIER);
-
-        supplierDao.save(entity);
-
-        System.out.println("Service Layer : " + supplier);
-        return false;
+        return supplierDao.save(new ModelMapper().map(supplier, SupplierEntity.class));
     }
 
     @Override
     public boolean deleteSupplier(String id) {
-        return false;
+        return supplierDao.delete(id);
     }
 
     @Override
-    public ObservableList<Supplier> getAll() {
-        return null;
+    public ObservableList<SupplierEntity> getAll() {
+        return supplierDao.getAll();
     }
 
     @Override
     public boolean updateSupplier(Supplier supplier) {
-        return false;
+        return supplierDao.update(new ModelMapper().map(supplier, SupplierEntity.class));
     }
 
     @Override
@@ -42,8 +37,4 @@ public class SupplierServiceImpl implements SupplierService {
         return null;
     }
 
-    @Override
-    public ObservableList<String> getCustomerIds() {
-        return null;
-    }
-}
+   }

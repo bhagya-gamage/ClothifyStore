@@ -1,15 +1,16 @@
 package service.custom;
 
 import dto.Item;
+import entity.ItemEntity;
 import javafx.collections.ObservableList;
 import service.SuperService;
 
 public interface ItemService extends SuperService {
     boolean addItem(Item item);
     boolean deleteItem(String id);
-    ObservableList<Item> getAll();
+    ObservableList<ItemEntity> getAll();
     boolean updateItem(Item item);
     Item searchItem(String id);
-    ObservableList<String> getItemIds();
+//    ObservableList<ItemEntity> getAllItemIds();
 
 }

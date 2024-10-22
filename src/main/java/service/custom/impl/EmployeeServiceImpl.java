@@ -10,40 +10,42 @@ import service.custom.EmployeeService;
 import util.DaoType;
 
 public class EmployeeServiceImpl implements EmployeeService {
+
+    EmployeeDao employeeDao= DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
+
     @Override
     public boolean addEmployee(Employee employee) {
         EmployeeEntity entity = new ModelMapper().map(employee,EmployeeEntity.class);
+        return  employeeDao.save(entity);
 
-        EmployeeDao employeeDao = DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
-
-        employeeDao.save(entity);
-
-        System.out.println("Service Layer : "+ employee);
-        return false;
     }
 
     @Override
     public boolean deleteEmployee(String id) {
-        return false;
+        return employeeDao.delete(id);
     }
 
     @Override
-    public ObservableList<Employee> getAll() {
-        return null;
+    public ObservableList<EmployeeEntity> getAllEmployees() {
+        return employeeDao.getAll();
     }
 
     @Override
     public boolean updateEmployee(Employee employee) {
-        return false;
+        EmployeeEntity entity = new ModelMapper().map(employee, EmployeeEntity.class);
+        return employeeDao.update(entity);
+
     }
 
     @Override
     public Employee searchEmployee(String id) {
-        return null;
+        EmployeeEntity employee = employeeDao.search(id);
+        return employee==null? null:new ModelMapper().map(employee, Employee.class);
+
     }
 
-    @Override
-    public ObservableList<String> getEmployeeIds() {
-        return null;
-    }
+//    @Override
+//    public ObservableList<EmployeeEntity> getEmployeeIds() {
+//        return employeeDao.getAll();
+//    }
 }

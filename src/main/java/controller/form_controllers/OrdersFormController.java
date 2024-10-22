@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -59,6 +60,19 @@ public class OrdersFormController {
 
     @FXML
     void btnAddToCartOnAction(ActionEvent event) {
+        coloitemid.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        coloitemname.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        coloqty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colounitprice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colototal.setCellValueFactory(new PropertyValueFactory<>("total"));
+
+        String itemId = cmbitemid.getValue().toString();
+        String itemName = txtitemname.getText();
+        Integer qty = Integer.parseInt(txtqty.getText());
+        Double unitPrice = Double.parseDouble(txtunitprice.getText());
+        Double total = unitPrice*qty;
+
+
 
     }
 

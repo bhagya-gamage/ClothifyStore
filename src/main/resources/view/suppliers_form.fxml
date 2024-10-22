@@ -14,13 +14,13 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.form_controllers.SupplierFormController">
    <children>
-      <ImageView fitHeight="571.0" fitWidth="883.0" layoutX="-3.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="571.0" fitWidth="760.0" layoutX="-3.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/clothify.jpeg" />
+            <Image url="@../img/cloth2.jpeg" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000061" height="191.0" layoutX="28.0" layoutY="73.0" stroke="BLACK" strokeType="INSIDE" width="710.0" />
-      <Label layoutX="67.0" layoutY="-10.0" text="Supplier Management" textFill="#ffffffb8">
+      <Label layoutX="67.0" layoutY="-11.0" text="Supplier Management" textFill="#ffffffb8">
          <font>
             <Font name="Book Antiqua Bold" size="62.0" />
          </font>
