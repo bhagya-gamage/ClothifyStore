@@ -1,8 +1,6 @@
 package util;
 
-import entity.EmployeeEntity;
-import entity.ItemEntity;
-import entity.SupplierEntity;
+import entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -66,22 +64,22 @@ public class HibernateUtil {
     }
 
 
-//    private static final SessionFactory orderSession=createOrderSession();
-//
-//    private static SessionFactory createOrderSession() {
-//        StandardServiceRegistry build=new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-//        Metadata metadata = new MetadataSources(build)
-//                .addAnnotatedClass(OrderEntity.class)
-//                .addAnnotatedClass(OrderDetailEntity.class)
-//                .addAnnotatedClass(ItemEntity.class)
-//                .getMetadataBuilder()
-//                .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
-//                .build();
-//        return metadata.getSessionFactoryBuilder().build();
-//    }
-//
-//    public static Session getOrderSession(){
-//        return orderSession.openSession();
-//    }
+    private static final SessionFactory orderSession=createOrderSession();
+
+    private static SessionFactory createOrderSession() {
+        StandardServiceRegistry build=new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+        Metadata metadata = new MetadataSources(build)
+                .addAnnotatedClass(OrderEntity.class)
+                .addAnnotatedClass(OrderDetailEntity.class)
+                .addAnnotatedClass(ItemEntity.class)
+                .getMetadataBuilder()
+                .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
+                .build();
+        return metadata.getSessionFactoryBuilder().build();
+    }
+
+    public static Session getOrderSession(){
+        return orderSession.openSession();
+    }
 
 }

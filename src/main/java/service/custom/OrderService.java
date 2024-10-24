@@ -4,8 +4,9 @@ import dto.Order;
 import dto.OrderDetails;
 import entity.OrderEntity;
 import javafx.collections.ObservableList;
+import service.SuperService;
 
-public interface OrderService {
+public interface OrderService extends SuperService {
     ObservableList<OrderEntity> getAllOrders();
 
     Boolean addOrder(Order order, ObservableList<OrderDetails> orderDetails);

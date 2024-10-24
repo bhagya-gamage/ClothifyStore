@@ -41,11 +41,7 @@ public class EmployeeController {
         return employeeService.getEmployeeIds();
     }
 
-//    public String genarateEmployeeId(){
-//        ObservableList<String> allEmployees = employeeService.getEmployeeIds();
-//        int id = allEmployees.isEmpty() ? 1 : Integer.parseInt((allEmployees.getLast().getEmployeeIds().split("Emp")[1]))+1;
-//        return "Emp"+id;
-//    }
+
 
 
 

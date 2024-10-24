@@ -1,5 +1,6 @@
 package controller.form_controllers;
 
+import controller.dto_controllers.EmployeeController;
 import controller.dto_controllers.ItemController;
 import dto.Employee;
 import dto.Item;
@@ -62,9 +63,13 @@ public class ItemsFormController implements Initializable {
     @FXML
     private TextField txtsize;
 
+    private int num = 1;
+
+
+    ItemService itemService = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
+
     @FXML
     void btnAddItemOnAction(ActionEvent event) {
-        ItemService itemService = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
         Item item = new Item(
                 txtitemid.getText(),
                 txtitemname.getText(),
@@ -73,25 +78,23 @@ public class ItemsFormController implements Initializable {
                 txtsize.getText()
         );
 
-        itemService.addItem(item);
         if (itemService.addItem(item)){
             new Alert(Alert.AlertType.INFORMATION,"Item Added !!").show();
 
         }else {
             new Alert(Alert.AlertType.ERROR,"Item Not Added !!").show();
         }
+        loadTable();
     }
 
     @FXML
     void btnDeleteItemOnAction(ActionEvent event) {
-        ItemService itemService = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
 
-        itemService.deleteItem(txtitemid.getText());
         if (itemService.deleteItem(txtitemid.getText())){
-            new Alert(Alert.AlertType.INFORMATION).show();
-            //loadTable();
+            new Alert(Alert.AlertType.INFORMATION,"Item Deleted").show();
+            loadTable();
         }else {
-            new Alert(Alert.AlertType.ERROR).show();
+            new Alert(Alert.AlertType.ERROR,"Item Not Deleted").show();
         }
     }
 
@@ -108,7 +111,6 @@ public class ItemsFormController implements Initializable {
 
     @FXML
     void btnUpdateItemOnAction(ActionEvent event) {
-        ItemService itemService = ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
 
         Item item = new Item(
                 txtitemid.getText(),
@@ -122,7 +124,7 @@ public class ItemsFormController implements Initializable {
 
         if (itemService.updateItem(item)){
             new Alert(Alert.AlertType.INFORMATION,"Item Updated!!").show();
-            //loadTable();
+            loadTable();
         }else {
             new Alert(Alert.AlertType.ERROR,"Item Not Updated!!").show();
         }
@@ -130,17 +132,33 @@ public class ItemsFormController implements Initializable {
 
     @FXML
     void btnViewItemOnAction(ActionEvent event) {
+        String itemId = txtitemid.getText().trim();
 
+        if (itemId.isEmpty()){
+            new Alert(Alert.AlertType.ERROR,"Enter Item Id ").showAndWait();
+        }else{
+            Item item= ItemController.getInstance().searchItem(itemId);
+            if (item==null){
+                new Alert(Alert.AlertType.ERROR,"Item Not Found ").showAndWait();
+            }else {
+                txtitemid.setEditable(false);
+                txtitemname.setText(item.getItemId());
+                txtitemqty.setText(String.valueOf(item.getItemQty()));
+                txtprice.setText(String.valueOf(item.getUnitPrice()));
+                txtsize.setText(item.getItemSize());
+            }
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colitemid.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
-        colitemname.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colitemqty.setCellValueFactory(new PropertyValueFactory<>("packSize"));
+        generateId();
+        colitemid.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        colitemname.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        colitemqty.setCellValueFactory(new PropertyValueFactory<>("itemQty"));
         colunitprice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-        colitemsize.setCellValueFactory(new PropertyValueFactory<>("qty"));
-        //loadTable();
+        colitemsize.setCellValueFactory(new PropertyValueFactory<>("itemSize"));
+        loadTable();
         itemtable.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
             if(newValue!=null){
                 setTextToValues(newValue);
@@ -156,8 +174,28 @@ public class ItemsFormController implements Initializable {
         txtsize.setText(newValue.getUnitPrice());
     }
 
-//    private void loadTable(){
-//        ObservableList<Item> all = service1.getAll();
-//        employeetable.setItems(all);
-//    }
+    private void loadTable(){
+        ObservableList<Item> all = itemService.getAll();
+        itemtable.setItems(all);
+    }
+
+    private void generateId(){
+
+        String id="";
+        if(num<10){
+            id=("I000"+ num++);
+            txtitemid.setText(id);
+        }else if(num<100){
+            id=("I00"+ num++);
+            txtitemid.setText(id);
+        }else if(num<1000){
+            id=("I"+ num++);
+            txtitemid.setText(id);
+        }else if(num<10000){
+            id="I"+ num++;
+            txtitemid.setText(id);
+        }
+
+    }
+
 }

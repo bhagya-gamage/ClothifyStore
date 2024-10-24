@@ -12,7 +12,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.form_controllers.OrdersFormController">
    <children>
       <ImageView fitHeight="592.0" fitWidth="790.0" pickOnBounds="true" preserveRatio="true">
@@ -20,35 +19,35 @@
             <Image url="@../img/cloth4.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="229.0" layoutY="-4.0" text="Place Order" textFill="#ffffffb8">
+      <Label layoutX="229.0" layoutY="-7.0" text="Place Order" textFill="#ffffffb8">
          <font>
             <Font name="Book Antiqua Bold" size="62.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000076" height="175.0" layoutX="22.0" layoutY="75.0" stroke="BLACK" strokeType="INSIDE" width="737.0" />
-      <Label layoutX="59.0" layoutY="102.0" text="Order Id : " textFill="WHITE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000078" height="200.0" layoutX="22.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="737.0" />
+      <Label layoutX="59.0" layoutY="83.0" text="Order Id : " textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="461.0" layoutY="102.0" text="Employee Id : " textFill="WHITE">
+      <Label layoutX="59.0" layoutY="127.0" text="Employee Id : " textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbitemid" layoutX="59.0" layoutY="145.0" prefWidth="150.0" promptText="Item Id" />
-      <TextField fx:id="txtitemname" layoutX="223.0" layoutY="145.0" prefHeight="26.0" prefWidth="166.0" promptText="Item Name" />
-      <TextField fx:id="txtitemsize" layoutX="405.0" layoutY="145.0" prefHeight="26.0" prefWidth="166.0" promptText="Item Size" />
-      <TextField fx:id="txtunitprice" layoutX="584.0" layoutY="144.0" prefHeight="26.0" prefWidth="166.0" promptText="Unit Price" />
-      <TextField fx:id="txtorderid" layoutX="157.0" layoutY="102.0" prefHeight="26.0" prefWidth="166.0" />
-      <TextField fx:id="txtempid" layoutX="584.0" layoutY="102.0" prefHeight="26.0" prefWidth="166.0" />
-      <Label layoutX="59.0" layoutY="195.0" text="Quantity :" textFill="WHITE">
+      <ComboBox fx:id="cmbitemid" layoutX="59.0" layoutY="177.0" prefWidth="150.0" promptText="Item Id" />
+      <TextField fx:id="txtitemname" layoutX="223.0" layoutY="177.0" prefHeight="26.0" prefWidth="166.0" promptText="Item Name" />
+      <TextField fx:id="txtitemsize" layoutX="403.0" layoutY="177.0" prefHeight="26.0" prefWidth="166.0" promptText="Item Size" />
+      <TextField fx:id="txtunitprice" layoutX="584.0" layoutY="176.0" prefHeight="26.0" prefWidth="166.0" promptText="Unit Price" />
+      <TextField fx:id="txtorderid" layoutX="186.0" layoutY="83.0" prefHeight="26.0" prefWidth="166.0" />
+      <TextField fx:id="txtempid" layoutX="186.0" layoutY="127.0" prefHeight="26.0" prefWidth="166.0" />
+      <Label layoutX="59.0" layoutY="223.0" text="Quantity :" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtqty" layoutX="157.0" layoutY="195.0" prefHeight="26.0" prefWidth="166.0" />
-      <JFXButton layoutX="607.0" layoutY="191.0" onAction="#btnAddToCartOnAction" prefHeight="38.0" prefWidth="129.0" style="-fx-background-color: #00BFFF;" text="Add To Cart">
+      <TextField fx:id="txtqty" layoutX="157.0" layoutY="223.0" prefHeight="26.0" prefWidth="166.0" />
+      <JFXButton layoutX="607.0" layoutY="218.0" onAction="#btnAddToCartOnAction" prefHeight="38.0" prefWidth="129.0" style="-fx-background-color: #00BFFF;" text="Add To Cart">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -82,5 +81,15 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
+      <Label fx:id="lblDate" layoutX="420.0" layoutY="83.0" text="Date : 2024-09-11" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTime" layoutX="620.0" layoutY="83.0" text="Time : 09:35:30" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

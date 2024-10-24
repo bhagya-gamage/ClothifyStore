@@ -1,6 +1,10 @@
 package controller.form_controllers;
 
+import controller.dto_controllers.EmployeeController;
+import controller.dto_controllers.ItemController;
 import dto.Employee;
+import dto.Item;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,12 +57,13 @@ public class EmployeeMainFormController implements Initializable {
     @FXML
     private TextField txtEmname;
 
-    //EmployeeService service = EmployeeController.getInstance();
+    private int num = 1;
+
+    EmployeeService employeeService = ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
 
     @FXML
     void btnAddEmOnAction(ActionEvent event) {
 
-        EmployeeService employeeService = ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
         Employee employee = new Employee(
                 txtEmid.getText(),
                 txtEmname.getText(),
@@ -66,32 +71,30 @@ public class EmployeeMainFormController implements Initializable {
                 txtEmAddress.getText(),
                 txtEmEmail.getText()
         );
-
-        employeeService.addEmployee(employee);
         if (employeeService.addEmployee(employee)){
             new Alert(Alert.AlertType.INFORMATION,"Employee Added !!").show();
 
         }else {
             new Alert(Alert.AlertType.ERROR,"Employee Not Added !!").show();
         }
+        loadTable();
     }
 
-//    private void loadTable(){
-//        ObservableList<Employee> all = service.getAll();
-//        employeetable.setItems(all);
-//    }
+    private void loadTable(){
+        ObservableList<Employee> all = employeeService.getAllEmployees();
+        all.forEach(employee -> {
+            System.out.println(employee);
+        });
+        employeetable.setItems(all);
+    }
 
     @FXML
     void btnDeleteEmOnAction(ActionEvent event) {
-
-        EmployeeService employeeService = ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
-
-        employeeService.deleteEmployee(txtEmid.getText());
         if (employeeService.deleteEmployee(txtEmid.getText())){
-            new Alert(Alert.AlertType.INFORMATION).show();
-            //loadTable();
+            new Alert(Alert.AlertType.INFORMATION,"Deleted").show();
+            loadTable();
         }else {
-            new Alert(Alert.AlertType.ERROR).show();
+            new Alert(Alert.AlertType.ERROR,"Not Deleted").show();
         }
     }
 
@@ -108,9 +111,6 @@ public class EmployeeMainFormController implements Initializable {
 
     @FXML
     void btnUpdateEmOnAction(ActionEvent event) {
-
-        EmployeeService employeeService = ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
-
         Employee employee = new Employee(
                 txtEmid.getText(),
                 txtEmname.getText(),
@@ -123,7 +123,7 @@ public class EmployeeMainFormController implements Initializable {
 
         if (employeeService.updateEmployee(employee)){
             new Alert(Alert.AlertType.INFORMATION,"Employee Updated!!").show();
-           // loadTable();
+           loadTable();
         }else {
             new Alert(Alert.AlertType.ERROR,"Employee Not Updated!!").show();
         }
@@ -131,17 +131,33 @@ public class EmployeeMainFormController implements Initializable {
 
     @FXML
     void btnViewEmOnAction(ActionEvent event) {
+        String employeeId = txtEmid.getText().trim();
 
+        if (employeeId.isEmpty()){
+            new Alert(Alert.AlertType.ERROR,"Enter Employee Id ").showAndWait();
+        }else{
+            Employee employee= EmployeeController.getInstance().searchEmployeeById(employeeId);
+            if (employee==null){
+                new Alert(Alert.AlertType.ERROR,"Employee Not Found ").showAndWait();
+            }else {
+                txtEmid.setEditable(false);
+                txtEmname.setText(employee.getEmpId());
+                txtEmComname.setText(employee.getCompanyName());
+                txtEmAddress.setText(employee.getEmpAddress());
+                txtEmEmail.setText(employee.getEmpEmail());
+            }
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colEmid.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
-        colemname.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colemcomname.setCellValueFactory(new PropertyValueFactory<>("packSize"));
-        colemaddress.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-        colememail.setCellValueFactory(new PropertyValueFactory<>("qty"));
-        //loadTable();
+        generateId();
+        colEmid.setCellValueFactory(new PropertyValueFactory<>("empId"));
+        colemname.setCellValueFactory(new PropertyValueFactory<>("empName"));
+        colemcomname.setCellValueFactory(new PropertyValueFactory<>("companyName"));
+        colemaddress.setCellValueFactory(new PropertyValueFactory<>("empAddress"));
+        colememail.setCellValueFactory(new PropertyValueFactory<>("empEmail"));
+        loadTable();
         employeetable.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
             if(newValue!=null){
                 setTextToValues(newValue);
@@ -155,6 +171,25 @@ public class EmployeeMainFormController implements Initializable {
         txtEmComname.setText(newValue.getCompanyName());
         txtEmAddress.setText(newValue.getEmpAddress());
         txtEmEmail.setText(newValue.getEmpEmail());
+    }
+
+    private void generateId(){
+
+        String id="";
+        if(num<10){
+            id=("EM000"+ num++);
+            txtEmid.setText(id);
+        }else if(num<100){
+            id=("EM00"+ num++);
+            txtEmid.setText(id);
+        }else if(num<1000){
+            id=("EM0"+ num++);
+            txtEmid.setText(id);
+        }else if(num<10000){
+            id="EM"+ num++;
+            txtEmid.setText(id);
+        }
+
     }
 
 

@@ -15,14 +15,22 @@ import java.util.List;
 public class ItemDaoImpl implements ItemDao {
     @Override
     public boolean save(ItemEntity item) {
-        System.out.println("Repository : " + item);
 
         Session session = HibernateUtil.getItemSession();
         session.beginTransaction();
-        session.persist(item);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.persist(item);
+            session.getTransaction().commit();
+            return true;
+        }catch (Exception e) {
+            if (session.getTransaction() != null){
+                session.getTransaction().rollback();
+            }
+        }finally {
+            session.close();
+        }
         return false;
+
     }
 
     @Override
@@ -35,14 +43,15 @@ public class ItemDaoImpl implements ItemDao {
             return true;
         } catch (HibernateException e) {
             return false;
-        }    }
+        }
+    }
 
     @Override
     public ObservableList<ItemEntity> getAll() {
         ObservableList<ItemEntity> item= FXCollections.observableArrayList();
         try {
             Session session = HibernateUtil.getItemSession();
-            Query<ItemEntity> query = session.createQuery("FROM EmployeeEntity", ItemEntity.class);
+            Query<ItemEntity> query = session.createQuery("FROM ItemEntity", ItemEntity.class);
             List<ItemEntity> itemEntityList=query.list();
             item.addAll(itemEntityList);
             return item;

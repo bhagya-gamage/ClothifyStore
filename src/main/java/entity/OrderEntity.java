@@ -12,10 +12,11 @@ import java.util.List;
 public class OrderEntity {
     @Id
     private String orderId;
-    private String customerName;
+    private String itemId;
     private String customerEmail;
     private LocalDate orderDate;
     private LocalTime orderTime;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<OrderDetailEntity> orderDetails;
 

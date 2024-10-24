@@ -3,6 +3,7 @@ package controller.form_controllers;
 import dto.Employee;
 import dto.Item;
 import dto.Supplier;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,9 +62,10 @@ public class SupplierFormController implements Initializable {
     @FXML
     private TextField txtsupemail;
 
+    SupplierService supplierService = ServiceFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
+
     @FXML
     void btnAddSupOnAction(ActionEvent event) {
-        SupplierService supplierService = ServiceFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
         Supplier supplier = new Supplier(
                 txtSupid.getText(),
                 txtSuoname.getText(),
@@ -73,18 +75,23 @@ public class SupplierFormController implements Initializable {
                 txtitem.getText()
         );
 
-        supplierService.addSupplier(supplier);
         if (supplierService.addSupplier(supplier)){
-            new Alert(Alert.AlertType.INFORMATION,"Employee Added !!").show();
+            new Alert(Alert.AlertType.INFORMATION,"Supplier Added !!").show();
 
         }else {
-            new Alert(Alert.AlertType.ERROR,"Employee Not Added !!").show();
+            new Alert(Alert.AlertType.ERROR,"Supplier Not Added !!").show();
         }
+        loadTable();
     }
 
     @FXML
     void btnDeleteSupOnAction(ActionEvent event) {
-
+        if (supplierService.deleteSupplier(txtSupid.getText())){
+            new Alert(Alert.AlertType.INFORMATION,"Supplier Deleted").show();
+            loadTable();
+        }else {
+            new Alert(Alert.AlertType.ERROR,"Supplier Not Deleted").show();
+        }
     }
 
     @FXML
@@ -100,7 +107,6 @@ public class SupplierFormController implements Initializable {
 
     @FXML
     void btnUpdateSupOnAction(ActionEvent event) {
-        SupplierService supplierService = ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
 
         Supplier supplier = new Supplier(
                 txtSupid.getText(),
@@ -115,10 +121,11 @@ public class SupplierFormController implements Initializable {
 
         if (supplierService.updateSupplier(supplier)){
             new Alert(Alert.AlertType.INFORMATION,"Supplier Updated!!").show();
-            //loadTable();
+            loadTable();
         }else {
             new Alert(Alert.AlertType.ERROR,"Supplier Not Updated!!").show();
         }
+
     }
 
     @FXML
@@ -128,13 +135,13 @@ public class SupplierFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colsupid.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
-        colsupname.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colcomname.setCellValueFactory(new PropertyValueFactory<>("packSize"));
-        colsupaddress.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-        colsupemail.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colsupid.setCellValueFactory(new PropertyValueFactory<>("supId"));
+        colsupname.setCellValueFactory(new PropertyValueFactory<>("supName"));
+        colcomname.setCellValueFactory(new PropertyValueFactory<>("companyName"));
+        colsupaddress.setCellValueFactory(new PropertyValueFactory<>("supAddress"));
+        colsupemail.setCellValueFactory(new PropertyValueFactory<>("supEmail"));
         colitem.setCellValueFactory(new PropertyValueFactory<>("item"));
-        //loadTable();
+        loadTable();
         suppliertable.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
             if(newValue!=null){
                 setTextToValues(newValue);
@@ -152,9 +159,9 @@ public class SupplierFormController implements Initializable {
     }
 
 
-//    private void loadTable(){
-//        ObservableList<Employee> all = service.getAll();
-//        employeetable.setItems(all);
-//    }
+    private void loadTable(){
+        ObservableList<Supplier> all = supplierService.getAll();
+        suppliertable.setItems(all);
+    }
 
 }

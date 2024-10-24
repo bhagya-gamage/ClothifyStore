@@ -1,7 +1,10 @@
 package service.custom.impl;
 
+import dto.Employee;
 import dto.Item;
+import entity.EmployeeEntity;
 import entity.ItemEntity;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.modelmapper.ModelMapper;
 import repository.DaoFactory;
@@ -24,8 +27,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ObservableList<ItemEntity> getAll() {
-        return itemDao.getAll();    }
+    public ObservableList<Item> getAll() {
+        ObservableList<Item> items = FXCollections.observableArrayList();
+        itemDao.getAll().forEach(item -> {
+            Item item1 = new ModelMapper().map(item,Item.class);
+            items.add(item1);
+        });
+        return items;
+    }
 
     @Override
     public boolean updateItem(Item item) {
@@ -36,13 +45,16 @@ public class ItemServiceImpl implements ItemService {
     public Item searchItem(String id) {
         ItemEntity itemEntity = itemDao.search(id);
         return itemEntity ==null? null : new ModelMapper().map(itemEntity, Item.class) ;
-
     }
 
-//    @Override
-//    public ObservableList<ItemEntity> getAllItemIds(String id) {
-//        return itemDao.getAllItemIds(id);
-//    }
-
+    @Override
+    public ObservableList<String> getAllItemIds() {
+        ObservableList<ItemEntity> all = itemDao.getAll();
+        ObservableList<String> itemId= FXCollections.observableArrayList();
+        for (ItemEntity item : all){
+            itemId.add(item.getItemId());
+        }
+        return itemId;
+    }
 
 }

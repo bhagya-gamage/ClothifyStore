@@ -2,6 +2,7 @@ package service.custom.impl;
 
 import dto.Supplier;
 import entity.SupplierEntity;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.modelmapper.ModelMapper;
 import repository.DaoFactory;
@@ -14,7 +15,8 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public boolean addSupplier(Supplier supplier) {
-        return supplierDao.save(new ModelMapper().map(supplier, SupplierEntity.class));
+        SupplierEntity entity = new ModelMapper().map(supplier,SupplierEntity.class);
+        return  supplierDao.save(entity);
     }
 
     @Override
@@ -23,8 +25,13 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public ObservableList<SupplierEntity> getAll() {
-        return supplierDao.getAll();
+    public ObservableList<Supplier> getAll() {
+        ObservableList<Supplier> suppliers = FXCollections.observableArrayList();
+        supplierDao.getAll().forEach(supplier -> {
+            Supplier supplier1 = new ModelMapper().map(suppliers,Supplier.class);
+            suppliers.add(supplier1);
+        });
+        return suppliers;
     }
 
     @Override

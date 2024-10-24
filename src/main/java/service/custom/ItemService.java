@@ -8,9 +8,9 @@ import service.SuperService;
 public interface ItemService extends SuperService {
     boolean addItem(Item item);
     boolean deleteItem(String id);
-    ObservableList<ItemEntity> getAll();
+    ObservableList<Item> getAll();
     boolean updateItem(Item item);
     Item searchItem(String id);
-//    ObservableList<ItemEntity> getAllItemIds();
+    ObservableList<String> getAllItemIds();
 
 }

@@ -14,13 +14,19 @@ import java.util.List;
 public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public boolean save(EmployeeEntity employee) {
-        System.out.println("Repository : " + employee );
-
         Session session = HibernateUtil.getEmployeeSession();
         session.beginTransaction();
-        session.persist(employee);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.persist(employee);
+            session.getTransaction().commit();
+            return true;
+        }catch (Exception e) {
+            if (session.getTransaction() != null){
+                session.getTransaction().rollback();
+            }
+        }finally {
+            session.close();
+        }
         return false;
     }
 
@@ -29,7 +35,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
         try {
             Session session = HibernateUtil.getEmployeeSession();
             session.beginTransaction();
-            session.remove(session.get(EmployeeEntity.class,id));
+            EmployeeEntity employee = session.get(EmployeeEntity.class,id);
+            if (employee != null){
+                session.remove(employee);
+            }
             session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {

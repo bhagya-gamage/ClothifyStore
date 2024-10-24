@@ -16,13 +16,20 @@ import java.util.List;
 public class SupplierDaoImpl implements SupplierDao {
     @Override
     public boolean save(SupplierEntity supplier) {
-        System.out.println("Repository : " + supplier);
 
         Session session = HibernateUtil.getSupplierSession();
         session.beginTransaction();
-        session.persist(supplier);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.persist(supplier);
+            session.getTransaction().commit();
+            return true;
+        }catch (Exception e) {
+            if (session.getTransaction() != null){
+                session.getTransaction().rollback();
+            }
+        }finally {
+            session.close();
+        }
         return false;
     }
 
@@ -44,7 +51,7 @@ public class SupplierDaoImpl implements SupplierDao {
         ObservableList<SupplierEntity> supplier= FXCollections.observableArrayList();
         try {
             Session session = HibernateUtil.getSupplierSession();
-            Query<SupplierEntity> query = session.createQuery("FROM EmployeeEntity", SupplierEntity.class);
+            Query<SupplierEntity> query = session.createQuery("FROM SupplierEntity", SupplierEntity.class);
             List<SupplierEntity> supplierEntityList=query.list();
             supplier.addAll(supplierEntityList);
             return supplier;
