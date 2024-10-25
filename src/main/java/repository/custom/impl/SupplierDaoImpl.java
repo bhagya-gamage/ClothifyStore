@@ -1,7 +1,6 @@
 package repository.custom.impl;
 
-import entity.EmployeeEntity;
-import entity.ItemEntity;
+
 import entity.SupplierEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,7 +75,7 @@ public class SupplierDaoImpl implements SupplierDao {
     @Override
     public SupplierEntity search(String id) {
         try {
-            Session session = HibernateUtil.getEmployeeSession();
+            Session session = HibernateUtil.getSupplierSession();
             return session.get(SupplierEntity.class, id);
         } catch (HibernateException e) {
             return null;

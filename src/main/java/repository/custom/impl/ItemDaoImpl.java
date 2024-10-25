@@ -77,7 +77,7 @@ public class ItemDaoImpl implements ItemDao {
     @Override
     public ItemEntity search(String id) {
         try {
-            Session session = HibernateUtil.getEmployeeSession();
+            Session session = HibernateUtil.getItemSession();
             return session.get(ItemEntity.class, id);
         } catch (HibernateException e) {
             return null;

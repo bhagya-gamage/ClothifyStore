@@ -18,12 +18,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public boolean addEmployee(Employee employee) {
         EmployeeEntity entity = new ModelMapper().map(employee,EmployeeEntity.class);
         return  employeeDao.save(entity);
-
     }
 
     @Override
     public boolean deleteEmployee(String id){
-        System.out.println(id);
         return employeeDao.delete(id);
     }
 

@@ -3,9 +3,12 @@ package controller.dto_controllers;
 
 import dto.Item;
 import dto.Supplier;
+import javafx.scene.control.Alert;
 import service.custom.SupplierService;
 
 import service.custom.impl.SupplierServiceImpl;
+
+import java.util.regex.Pattern;
 
 public class SupplierController {
     private final SupplierService supplierService= new SupplierServiceImpl();
@@ -28,7 +31,10 @@ public class SupplierController {
     public boolean updateSupplier(Supplier supplier){
         return supplierService.updateSupplier(supplier);
     }
+
     public boolean deleteSupplier(String id){
         return supplierService.deleteSupplier(id);
     }
+
+
 }

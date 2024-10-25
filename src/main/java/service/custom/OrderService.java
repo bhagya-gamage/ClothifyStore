@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import service.SuperService;
 
 public interface OrderService extends SuperService {
-    ObservableList<OrderEntity> getAllOrders();
+    ObservableList<OrderDetails> getAllOrders();
 
     Boolean addOrder(Order order, ObservableList<OrderDetails> orderDetails);
 

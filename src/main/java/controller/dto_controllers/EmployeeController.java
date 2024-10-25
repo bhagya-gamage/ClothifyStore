@@ -1,16 +1,9 @@
 package controller.dto_controllers;
 
 import dto.Employee;
-import dto.Item;
-import entity.EmployeeEntity;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import service.custom.EmployeeService;
 import service.custom.impl.EmployeeServiceImpl;
-import util.CrudUtil;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class EmployeeController {
 
@@ -42,14 +35,20 @@ public class EmployeeController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
+    public boolean authenticateEmployee(String email, String password) {
+//        ObservableList<EmployeeEntity> allEmployees = getAllEmployees();
+//        Encryptor encryptor = new Encryptor();
+//        try {
+//            for (EmployeeEntity employee:allEmployees){
+//                if (employee.getEmail().equals(email) && employee.getPassword().equals(encryptor.encryptString(password))){
+//                    currentEmployee=new ModelMapper().map(employee,Employee.class);
+//                    return true;
+//                }
+//            }
+//            return false;
+//        } catch (NoSuchAlgorithmException e) {
+//            return false;
+//        }
+        return false;
+    }
 }

@@ -1,9 +1,7 @@
 package service;
 
 import repository.custom.impl.SupplierDaoImpl;
-import service.custom.impl.EmployeeServiceImpl;
-import service.custom.impl.ItemServiceImpl;
-import service.custom.impl.SupplierServiceImpl;
+import service.custom.impl.*;
 import util.ServiceType;
 
 import static util.DaoType.*;
@@ -21,7 +19,9 @@ public class ServiceFactory {
             case EMPLOYEE:return (T) new EmployeeServiceImpl();
             case ITEM:return (T) new ItemServiceImpl();
             case SUPPLIER:return (T) new SupplierServiceImpl();
-            case ORDER:return (T) new SupplierServiceImpl();
+            case ORDER:return (T) new OrderServiceImpl();
+            case ADMIN:return (T) new AdminServiceImpl();
+
 
         }
         return null;

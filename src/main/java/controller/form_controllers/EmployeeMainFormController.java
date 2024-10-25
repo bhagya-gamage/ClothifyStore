@@ -82,9 +82,6 @@ public class EmployeeMainFormController implements Initializable {
 
     private void loadTable(){
         ObservableList<Employee> all = employeeService.getAllEmployees();
-        all.forEach(employee -> {
-            System.out.println(employee);
-        });
         employeetable.setItems(all);
     }
 
@@ -119,7 +116,6 @@ public class EmployeeMainFormController implements Initializable {
                 txtEmEmail.getText()
         );
 
-        employeeService.updateEmployee(employee);
 
         if (employeeService.updateEmployee(employee)){
             new Alert(Alert.AlertType.INFORMATION,"Employee Updated!!").show();

@@ -16,18 +16,18 @@ public class OrderServiceImpl implements OrderService {
     OrderDao orderDao= DaoFactory.getInstance().getDaoType(DaoType.ORDER);
 
     @Override
-    public ObservableList<OrderEntity> getAllOrders() {
+    public ObservableList<OrderDetails> getAllOrders() {
+
         return null;
     }
 
     @Override
     public Boolean addOrder(Order order, ObservableList<OrderDetails> orderDetails) {
-//        ObservableList<OrderDetailEntity> orderDetailEntities= FXCollections.observableArrayList();
-//        orderDetails.forEach(orderDetail ->orderDetailEntities.add(new ModelMapper().map(orderDetail, OrderDetailEntity.class)));
-//        OrderEntity orderEntity = new ModelMapper().map(order, OrderEntity.class);
-//        orderEntity.setOrderDetails(orderDetailEntities);
-//        return orderDao.save(orderEntity,orderDetailEntities);
-        return false;
+        ObservableList<OrderDetailEntity> orderDetailEntities= FXCollections.observableArrayList();
+        orderDetails.forEach(orderDetail ->orderDetailEntities.add(new ModelMapper().map(orderDetail, OrderDetailEntity.class)));
+        OrderEntity orderEntity = new ModelMapper().map(order, OrderEntity.class);
+        orderEntity.setOrderDetails(orderDetailEntities);
+        return orderDao.save(orderEntity,orderDetailEntities);
     }
 
     @Override

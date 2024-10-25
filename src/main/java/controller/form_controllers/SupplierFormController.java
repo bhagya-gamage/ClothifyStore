@@ -1,5 +1,7 @@
 package controller.form_controllers;
 
+import controller.dto_controllers.EmployeeController;
+import controller.dto_controllers.SupplierController;
 import dto.Employee;
 import dto.Item;
 import dto.Supplier;
@@ -62,6 +64,9 @@ public class SupplierFormController implements Initializable {
     @FXML
     private TextField txtsupemail;
 
+    private int num = 1;
+
+
     SupplierService supplierService = ServiceFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
 
     @FXML
@@ -74,7 +79,6 @@ public class SupplierFormController implements Initializable {
                 txtsupemail.getText(),
                 txtitem.getText()
         );
-
         if (supplierService.addSupplier(supplier)){
             new Alert(Alert.AlertType.INFORMATION,"Supplier Added !!").show();
 
@@ -130,11 +134,28 @@ public class SupplierFormController implements Initializable {
 
     @FXML
     void btnViewSupOnAction(ActionEvent event) {
+        String supplierId = txtSupid.getText().trim();
 
+        if (supplierId.isEmpty()){
+            new Alert(Alert.AlertType.ERROR,"Enter Supplier Id ").showAndWait();
+        }else{
+            Supplier supplier= SupplierController.getInstance().searchSupplier(supplierId);
+            if (supplier==null){
+                new Alert(Alert.AlertType.ERROR,"Supplier Not Found ").showAndWait();
+            }else {
+                txtSupid.setEditable(false);
+                txtSuoname.setText(supplier.getSupId());
+                txtComname.setText(supplier.getCompanyName());
+                txtsupAddress.setText(supplier.getSupAddress());
+                txtsupemail.setText(supplier.getSupEmail());
+                txtitem.setText(supplier.getItem());
+            }
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        generateId();
         colsupid.setCellValueFactory(new PropertyValueFactory<>("supId"));
         colsupname.setCellValueFactory(new PropertyValueFactory<>("supName"));
         colcomname.setCellValueFactory(new PropertyValueFactory<>("companyName"));
@@ -162,6 +183,25 @@ public class SupplierFormController implements Initializable {
     private void loadTable(){
         ObservableList<Supplier> all = supplierService.getAll();
         suppliertable.setItems(all);
+    }
+
+    private void generateId(){
+
+        String id="";
+        if(num<10){
+            id=("S000"+ num++);
+            txtSupid.setText(id);
+        }else if(num<100){
+            id=("S00"+ num++);
+            txtSupid.setText(id);
+        }else if(num<1000){
+            id=("S0"+ num++);
+            txtSupid.setText(id);
+        }else if(num<10000){
+            id="S"+ num++;
+            txtSupid.setText(id);
+        }
+
     }
 
 }

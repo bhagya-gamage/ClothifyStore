@@ -3,6 +3,7 @@ package controller.form_controllers;
 import controller.dto_controllers.ItemController;
 import controller.dto_controllers.OrderController;
 import dto.Cart;
+import dto.Item;
 import dto.Order;
 import dto.OrderDetails;
 import javafx.animation.Animation;
@@ -15,11 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -28,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,8 +39,10 @@ public class OrdersFormController implements Initializable {
     public TextField txtcustemail;
     public Label lblTime;
     public Label lblDate;
+    public TextField txtCustname;
+    public TextField txtcustEmail;
     @FXML
-    private ComboBox<?> cmbitemid;
+    private ComboBox<String> cmbitemid;
 
     @FXML
     private TableColumn<?, ?> coloitemid;
@@ -89,7 +89,7 @@ public class OrdersFormController implements Initializable {
     void btnAddToCartOnAction(ActionEvent event) {
         coloitemid.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         coloitemname.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-        coloqty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        coloqty.setCellValueFactory(new PropertyValueFactory<>("itemQty"));
         colounitprice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         colototal.setCellValueFactory(new PropertyValueFactory<>("total"));
 
@@ -104,7 +104,6 @@ public class OrdersFormController implements Initializable {
         calcNetTotal();
 
         ordertable.setItems(cart);
-
     }
 
     @FXML
@@ -121,17 +120,21 @@ public class OrdersFormController implements Initializable {
     @FXML
     void btnPlaceOrderOnAction(ActionEvent event) throws SQLException {
         String orderId = txtorderid.getText();
-        String employeeId = txtempid.getText();
 
-        List<OrderDetails> orderDetails = new ArrayList<>();
-
+        Order order=new Order(orderId,LocalTime.now(),Double.parseDouble(lbltot.getText()),txtCustname.getText(),txtcustEmail.getText(),LocalDate.now());
+        ObservableList <OrderDetails> orderDetails =  FXCollections.observableArrayList();
         cart.forEach(obj-> {
-            orderDetails.add(new OrderDetails(orderId,obj.getItemId(),employeeId,obj.getItemName(),obj.getItemQty(),obj.getUnitPrice(),obj.getItemSize()));
+            orderDetails.add(new OrderDetails(order,obj.getItemId(),obj.getItemName(),obj.getItemQty(),obj.getUnitPrice(),obj.getItemSize()));
         });
 
-        // Order order = new Order(orderId,employeeId);
-        // OrderController.placeOrder(order);
+        OrderController.getInstance().placeOrder(order,orderDetails);
+        new Alert(Alert.AlertType.INFORMATION,"Order Added !!").show();
 
+//        if(){
+//            new Alert(Alert.AlertType.INFORMATION,"Employee Added !!").show();
+//        }else{
+//            new Alert(Alert.AlertType.INFORMATION,"Employee Added !!").show();
+//        }
 
     }
 
@@ -142,20 +145,30 @@ public class OrdersFormController implements Initializable {
             total+=cart1.getTotal();
         }
 
-        lbltot.setText(total.toString()+"/=");
-    }
-
-    private void loadItemIds(){
-       // cmbitemid.setItems();
+        lbltot.setText(total.toString());
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadItemIds();
+        cmbitemid.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue)->{
+            if (newValue!=null){
+                textToTextFiels(newValue);
+            }
+        }));
         loadDateAndTime();
     }
 
+    private void textToTextFiels(String id) {
+        Item item = ItemController.getInstance().searchItem(id);
+        txtitemname.setText(item.getItemName());
+        txtitemsize.setText(item.getItemSize());
+        txtunitprice.setText(item.getUnitPrice());
+    }
+
     private void loadDateAndTime() {
+
         Date date = new Date();
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         String dateNow = f.format(date);
@@ -170,5 +183,10 @@ public class OrdersFormController implements Initializable {
 
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+    private void loadItemIds(){
+        ObservableList<String> ids =ItemController.getInstance().getItemIds();
+        cmbitemid.setItems(ids);
     }
 }

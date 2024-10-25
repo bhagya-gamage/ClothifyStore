@@ -3,6 +3,7 @@ package controller.dto_controllers;
 
 import dto.Employee;
 import dto.Item;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import service.custom.ItemService;
 
@@ -32,7 +33,18 @@ public class ItemController {
     public boolean deleteItem(String id){
         return itemService.deleteItem(id);
     }
-//    public ObservableList<String> getAll(){
-//        return itemService.getAll();
-//    }
+
+    public ObservableList<String> getItemIds() {
+        ObservableList<Item> all = getAll();
+        ObservableList<String> itemIds = FXCollections.observableArrayList();
+        all.forEach(item -> {
+            itemIds.add(item.getItemId());
+        });
+        return itemIds;
+    }
+
+    public ObservableList<Item> getAll(){
+        return itemService.getAll();
+    }
+
 }

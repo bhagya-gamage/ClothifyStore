@@ -1,24 +1,29 @@
 package entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Entity
 public class OrderEntity {
     @Id
     private String orderId;
-    private String itemId;
-    private String customerEmail;
     private LocalDate orderDate;
     private LocalTime orderTime;
+    private Double orderTotal;
+    private String custName;
+    private String custEmail;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<OrderDetailEntity> orderDetails;
 
-    private Double orderTotal;
 }

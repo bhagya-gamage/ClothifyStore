@@ -1,5 +1,6 @@
 package dto;
 
+import entity.OrderEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,9 +11,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class OrderDetails {
-    private String orderId;
+    private Order order;
     private String itemId;
-    private String employeeId;
     private String itemName;
     private Integer itemQty;
     private Double unitPrice;

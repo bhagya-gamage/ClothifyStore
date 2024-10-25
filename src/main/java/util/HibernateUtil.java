@@ -82,4 +82,20 @@ public class HibernateUtil {
         return orderSession.openSession();
     }
 
+    private static final SessionFactory adminSession=createAdminSession();
+
+    private static SessionFactory createAdminSession() {
+        StandardServiceRegistry build=new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+        Metadata metadata = new MetadataSources(build)
+                .addAnnotatedClass(AdminEntity.class)
+                .getMetadataBuilder()
+                .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
+                .build();
+        return metadata.getSessionFactoryBuilder().build();
+    }
+
+    public static Session getAdminSession(){
+        return adminSession.openSession();
+    }
+
 }

@@ -1,6 +1,7 @@
 package repository.custom.impl;
 
 import entity.ItemEntity;
+import entity.OrderDetailEntity;
 import entity.OrderEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +21,27 @@ public class OrderDaoImpl implements OrderDao {
         session.persist(orderEntity);
         session.getTransaction().commit();
         session.close();
-        return false;    }
+        return false;
+    }
+
+    @Override
+    public boolean save(OrderEntity orderEntity, ObservableList<OrderDetailEntity> orderDetailEntities) {
+        Session session = HibernateUtil.getOrderSession();
+        session.beginTransaction();
+
+        session.persist(orderEntity);
+
+        for (OrderDetailEntity orderDetail : orderDetailEntities) {
+            orderDetail.setOrder(orderEntity); // Set the foreign key reference if necessary
+            session.persist(orderDetail);
+        }
+
+        session.getTransaction().commit();
+        session.close();
+
+        return true;
+    }
+
 
     @Override
     public boolean delete(String id) {
@@ -46,20 +67,12 @@ public class OrderDaoImpl implements OrderDao {
             return order;
         } catch (HibernateException e) {
             return order;
-        }    }
+        }
+    }
 
     @Override
     public boolean update(OrderEntity orderEntity) {
-//        try {
-//            Session session = HibernateUtil.getOrderSession();
-//            session.beginTransaction();
-//            session.merge(orderEntity.getItemId(),orderEntity);
-//            session.getTransaction().commit();
-//            session.close();
-//            return true;
-//        } catch (HibernateException e) {
-//            return false;
-//        }
+
         return false;
     }
 
